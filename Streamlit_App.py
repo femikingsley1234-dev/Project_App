@@ -72,6 +72,7 @@ incidents_per_month.plot(kind="line", ax=ax)
 ax.set_xlabel("Month")
 ax.set_ylabel("Number of Incidents")
 st.pyplot(fig)
+st.markdown("Summary: Incidents show a generally increasing/decreasing/stable trend over time, peaking in the month with the highest recorded incidents.")
 
 # =====================
 # CHART 2
