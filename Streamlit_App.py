@@ -225,6 +225,24 @@ st.markdown(
 # =====================
 st.subheader("Most Frequent Incident Type")
 
+incident_counts = filtered_df["Incident"].value_counts().nlargest(10)
+
 fig, ax = plt.subplots()
-filtered_df["Incident"].value_counts().nlargest(10).plot(kind="barh", ax=ax)
+incident_counts.plot(kind="barh", ax=ax, color="slateblue")
+ax.invert_yaxis()
+ax.set_xlabel("Number of Occurrences")
+
 st.pyplot(fig)
+
+# Summary
+top_incident = incident_counts.idxmax()
+top_count = incident_counts.max()
+total_top10 = incident_counts.sum()
+
+st.markdown(
+    f"""
+**Summary:**  
+- **{top_incident}** is the most frequent incident type with **{top_count:,}** occurrences.  
+- The top 10 incident types account for **{total_top10:,}** recorded cases, indicating these categories dominate the dataset.  
+"""
+)
