@@ -76,13 +76,26 @@ st.markdown("Summary: Incidents show a generally increasing/decreasing/stable tr
 
 # =====================
 # CHART 2
-# =====================
 st.subheader("States with Highest Total Deaths")
+
 state_deaths = filtered_df.groupby("State")["Number of deaths"].sum().sort_values(ascending=False)
 
 fig, ax = plt.subplots()
 state_deaths.plot(kind="bar", ax=ax)
 st.pyplot(fig)
+
+# Summary
+top_state = state_deaths.idxmax()
+top_value = state_deaths.max()
+total_deaths = state_deaths.sum()
+
+st.markdown(
+    f"""
+**Summary:**  
+- **{top_state}** has the highest number of deaths with **{top_value:,}** cases.  
+- Across all states, the total recorded deaths are **{total_deaths:,}**.  
+"""
+)
 
 # =====================
 # CHART 3
