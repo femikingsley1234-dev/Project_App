@@ -101,11 +101,33 @@ st.markdown(
 # CHART 3
 # =====================
 st.subheader("Deadliest Incidents")
-top_incidents = filtered_df.groupby("Incident")["Number of deaths"].sum().sort_values(ascending=False).head(10)
+
+top_incidents = (
+    filtered_df.groupby("Incident")["Number of deaths"]
+    .sum()
+    .sort_values(ascending=False)
+    .head(10)
+)
 
 fig, ax = plt.subplots()
-top_incidents.plot(kind="barh", ax=ax)
+top_incidents.plot(kind="barh", ax=ax, color="darkred")
+ax.invert_yaxis()  # highest at the top
+ax.set_xlabel("Number of Deaths")
+
 st.pyplot(fig)
+
+# Summary
+deadliest_incident = top_incidents.idxmax()
+deadliest_value = top_incidents.max()
+total_top10 = top_incidents.sum()
+
+st.markdown(
+    f"""
+**Summary:**  
+- The deadliest incident is **{deadliest_incident}** with **{deadliest_value:,}** deaths.  
+- The top 10 incidents account for a combined **{total_top10:,}** deaths.  
+"""
+)
 
 # =====================
 # CHART 4
