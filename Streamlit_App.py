@@ -131,14 +131,32 @@ st.markdown(
 
 # =====================
 # CHART 4
-# =====================
 st.subheader("Proportion of Deaths by Top 10 States")
-top10_state_deaths = filtered_df.groupby("State")["Number of deaths"].sum().nlargest(10)
+
+top10_state_deaths = (
+    filtered_df.groupby("State")["Number of deaths"]
+    .sum()
+    .nlargest(10)
+)
 
 fig, ax = plt.subplots()
 top10_state_deaths.plot(kind="pie", autopct="%1.1f%%", ax=ax)
 ax.set_ylabel("")
 st.pyplot(fig)
+
+# Summary
+top_state = top10_state_deaths.idxmax()
+top_value = top10_state_deaths.max()
+total_top10 = top10_state_deaths.sum()
+top_share = (top_value / total_top10) * 100
+
+st.markdown(
+    f"""
+**Summary:**  
+- **{top_state}** contributes the largest share at **{top_share:.1f}%** of deaths among the top 10 states.  
+- Together, these states account for **{total_top10:,}** deaths, indicating fatalities are concentrated in a limited number of regions.  
+"""
+)
 
 # =====================
 # CHART 5
