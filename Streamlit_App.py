@@ -193,12 +193,32 @@ st.markdown(
 
 # =====================
 # CHART 6
-# =====================
 st.subheader("Incident Type with Highest Average Deaths")
 
+avg_deaths = (
+    filtered_df.groupby("Incident")["Number of deaths"]
+    .mean()
+    .nlargest(10)
+)
+
 fig, ax = plt.subplots()
-filtered_df.groupby("Incident")["Number of deaths"].mean().nlargest(10).plot(kind="barh", ax=ax)
+avg_deaths.plot(kind="barh", ax=ax, color="teal")
+ax.invert_yaxis()
+ax.set_xlabel("Average Number of Deaths")
+
 st.pyplot(fig)
+
+# Summary
+top_incident = avg_deaths.idxmax()
+top_value = avg_deaths.max()
+
+st.markdown(
+    f"""
+**Summary:**  
+- **{top_incident}** has the highest average deaths per incident at **{top_value:.1f}**.  
+- This indicates that, on average, this type of incident tends to be more severe compared to others in the dataset.  
+"""
+)
 
 # =====================
 # CHART 7
