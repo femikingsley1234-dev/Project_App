@@ -163,9 +163,33 @@ st.markdown(
 # =====================
 st.subheader("Trend of Deaths Per Year Per State")
 
+yearly_state_deaths = (
+    filtered_df.groupby(["Year", "State"])["Number of deaths"]
+    .sum()
+    .unstack()
+)
+
 fig, ax = plt.subplots(figsize=(10, 6))
-filtered_df.groupby(["Year", "State"])["Number of deaths"].sum().unstack().plot(ax=ax)
+yearly_state_deaths.plot(ax=ax)
+ax.set_xlabel("Year")
+ax.set_ylabel("Number of Deaths")
+
 st.pyplot(fig)
+
+# Summary
+total_per_year = yearly_state_deaths.sum(axis=1)
+peak_year = total_per_year.idxmax()
+peak_value = total_per_year.max()
+overall_total = total_per_year.sum()
+
+st.markdown(
+    f"""
+**Summary:**  
+- The highest number of deaths occurred in **{peak_year}**, with **{peak_value:,}** recorded cases.  
+- Across all years and states, a total of **{overall_total:,}** deaths were recorded.  
+- The trend shows how fatalities vary over time across different states, with some states experiencing sharper increases than others.  
+"""
+)
 
 # =====================
 # CHART 6
