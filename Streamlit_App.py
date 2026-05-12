@@ -42,11 +42,17 @@ df["Year"] = df["Start date"].dt.year
 # =====================
 # SIDEBAR FILTERS
 # =====================
-st.sidebar.markdown("""
-Name: Oradare Oluwafemi
-""")
+# Sidebar user profile
+with st.sidebar:
+    st.markdown("## 👤 User Profile")
+    st.markdown("""
+    **Name:** Oradare Oluwafemi  
+    **Role:** Data Analyst  
+    **Location:** Lagos, Nigeria  
+    """)
+    st.markdown("---")
 
-st.sidebar.header("Filters")
+st.sidebar.header("")
 
 min_date = df["Start date"].min().date()
 max_date = df["Start date"].max().date()
