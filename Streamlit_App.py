@@ -50,9 +50,7 @@ with st.sidebar:
     **Role:** Data Analyst  
     **Location:** Lagos, Nigeria  
     """)
-    st.markdown("---")
-
-st.sidebar.header("")
+  
 
 min_date = df["Start date"].min().date()
 max_date = df["Start date"].max().date()
