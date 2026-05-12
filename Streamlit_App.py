@@ -6,8 +6,10 @@ import seaborn as sns
 
 df = pd.read_csv("Oluwafemi.csv")
 import streamlit as st
+st.set_page_config(layout="wide")
+import streamlit as st
 
-# Inject custom CSS for animated background
+# Inject custom CSS for animated gradient background
 page_bg = """
 <style>
 @keyframes gradientShift {
@@ -16,11 +18,10 @@ page_bg = """
   100% {background-position: 0% 50%;}
 }
 
-body {
+.stApp {
   background: linear-gradient(-45deg, #ff6ec4, #7873f5, #4ade80, #facc15);
   background-size: 400% 400%;
   animation: gradientShift 15s ease infinite;
-  height: 100vh;
 }
 </style>
 """
@@ -30,7 +31,7 @@ st.markdown(page_bg, unsafe_allow_html=True)
 
 
 
-st.set_page_config(layout="wide")
+
 
 # Convert dates
 df["Start date"] = pd.to_datetime(df["Start date"])
